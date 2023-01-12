@@ -9,16 +9,21 @@
   <div id="globeViz"></div>
 
   <script>
+
+    const weightColor = d3.scaleSequentialSqrt(d3.interpolateYlOrRd)
+      .domain([0, 50]);
+
     const world = Globe()
       (document.getElementById('globeViz'))
       .globeImageUrl('//unpkg.com/three-globe/example/img/earth-blue-marble.jpg')
       .bumpImageUrl('//unpkg.com/three-globe/example/img/earth-topology.png')
+      .hexBinResolution(2)
       //.backgroundImageUrl('//unpkg.com/three-globe/example/img/night-sky.png')
       //.hexBinPointWeight('pop')
       //.hexAltitude(d => d.sumWeight * 6e-8)
       //.hexBinResolution(4)
-      //.hexTopColor(d => weightColor(d.sumWeight))
-      //.hexSideColor(d => weightColor(d.sumWeight))
+      .hexTopColor(d => weightColor(d.sumWeight))
+      .hexSideColor(d => weightColor(d.sumWeight))
       .hexBinMerge(true)
       .enablePointerInteraction(false); // performance improvement
 
