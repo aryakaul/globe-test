@@ -1,0 +1,83 @@
+#!/bin/bash
+set -u
+set -e
+
+#baym_link="https://docs.google.com/spreadsheets/"
+baym_link="https://docs.google.com/spreadsheets/d/176vgtgU8YnqGl14yqhUTwCzm3vBy1Ne8sMuKQgICqAM/export?format=tsv&gid=1947622457"
+
+dl_googlesheet() {
+    latlongdata="$(pwd)/docs/baym-test/locations.csv"
+    echo "lat,lng" > $latlongdata
+    curl -L $baym_link | sed 1d | awk -F '\t' '{print $3}' >> $latlongdata
+}
+
+build_website() {
+    num_responses=$(wc -l $latlongdata)
+    echo "
+<head>
+  <style> body { margin: 0; } </style>
+  <script src="//unpkg.com/d3"></script>
+  <script src="//unpkg.com/d3-dsv"></script>
+  <script src="//unpkg.com/globe.gl"></script>
+</head>
+
+<body>
+  <div id="globeViz"></div>
+
+  <script>
+
+    const weightColor = d3.scaleSequentialSqrt(d3.interpolateYlOrRd)
+      .domain([0, $num_responses]);
+
+    const world = Globe()
+      (document.getElementById('globeViz'))
+      .globeImageUrl('//unpkg.com/three-globe/example/img/earth-blue-marble.jpg')
+      .bumpImageUrl('//unpkg.com/three-globe/example/img/earth-topology.png')
+      .backgroundImageUrl('//unpkg.com/three-globe/example/img/night-sky.png')
+      .hexBinResolution(3)
+      .hexTopColor(d => weightColor(d.sumWeight))
+      .hexSideColor(d => weightColor(d.sumWeight))
+      .hexBinMerge(true)
+      .enablePointerInteraction(false); // performance improvement
+
+    fetch('$latlongdata').then(res => res.text())
+      .then(csv => d3.csvParse(csv, ({ lat, lng }) => ({ lat: +lat, lng: +lng })))
+      .then(data => world.hexBinPointsData(data));
+
+    // Add auto-rotation
+    world.controls().autoRotate = true;
+    world.controls().autoRotateSpeed = 0.8;
+  </script>
+</body>
+" > $(pwd)/docs/baym-test/index.html
+
+    git add ./*
+    git commit -m "update website"
+    git push
+}
+
+main() {
+	#for i in "$@"; do
+	#case $i in
+        #-e|--extension)
+        #EXTENSION="$2"
+        #shift
+        #shift
+        #;;
+        #*)    
+		#;;
+	#esac
+	#done
+    #[ ! -d "$DIR" ] && die "directory doesn't exist"
+    dl_googlesheet
+    build_website
+}
+
+die() {
+    printf 'error: %s.\n' "$1" >&2
+    exit 1
+}
+
+main "$@"
+
+
