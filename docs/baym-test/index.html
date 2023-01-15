@@ -14,11 +14,22 @@
     const weightColor = d3.scaleSequentialSqrt(d3.interpolateYlOrRd)
       .domain([0, 3]);
 
+    const dbmi = {
+        lat: "42.3354375",
+        lng: "-71.1044172",
+        ringAltitude: 0.0015,
+        ringResolution: 64,
+        ringRepeatPeriod: 700,
+        ringMaxRadius: 2,
+        ringPropagationSpeed: -1,
+    }
+
     const world = Globe()
       (document.getElementById('globeViz'))
       .globeImageUrl('//unpkg.com/three-globe/example/img/earth-blue-marble.jpg')
       .bumpImageUrl('//unpkg.com/three-globe/example/img/earth-topology.png')
       .backgroundImageUrl('//unpkg.com/three-globe/example/img/night-sky.png')
+      .ringsData(dbmi)
       .hexBinResolution(3)
       .hexTopColor(d => weightColor(d.sumWeight))
       .hexSideColor(d => weightColor(d.sumWeight))
@@ -28,6 +39,7 @@
     fetch('./locations.csv').then(res => res.text())
       .then(csv => d3.csvParse(csv, ({ lat, lng }) => ({ lat: +lat, lng: +lng })))
       .then(data => world.hexBinPointsData(data));
+
 
     // Add auto-rotation
     world.controls().autoRotate = true;
