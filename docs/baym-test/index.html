@@ -14,7 +14,7 @@
     const weightColor = d3.scaleSequentialSqrt(d3.interpolateYlOrRd)
       .domain([0, 3]);
 
-    const dbmi = {
+    const dbmi = ({
         lat: 42.3354375,
         lng: -71.1044172,
         ringAltitude: 0.0015,
@@ -22,7 +22,7 @@
         ringRepeatPeriod: 700,
         ringMaxRadius: 2,
         ringPropagationSpeed: 1,
-    };
+    });
 
     const world = Globe()
       (document.getElementById('globeViz'))
