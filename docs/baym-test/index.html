@@ -12,7 +12,7 @@
   <script>
 
     const weightColor = d3.scaleSequentialSqrt(d3.interpolateYlOrRd)
-      .domain([0,        3 /Users/arya/arya/projects/globe-test/docs/baym-test/locations.csv]);
+      .domain([0, 3]);
 
     const world = Globe()
       (document.getElementById('globeViz'))
@@ -25,7 +25,7 @@
       .hexBinMerge(true)
       .enablePointerInteraction(false); // performance improvement
 
-    fetch('/Users/arya/arya/projects/globe-test/docs/baym-test/locations.csv').then(res => res.text())
+    fetch('./locations.csv').then(res => res.text())
       .then(csv => d3.csvParse(csv, ({ lat, lng }) => ({ lat: +lat, lng: +lng })))
       .then(data => world.hexBinPointsData(data));
 

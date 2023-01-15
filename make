@@ -6,13 +6,13 @@ set -e
 baym_link="https://docs.google.com/spreadsheets/d/176vgtgU8YnqGl14yqhUTwCzm3vBy1Ne8sMuKQgICqAM/export?format=tsv&gid=1947622457"
 
 dl_googlesheet() {
-    latlongdata="$(pwd)/docs/baym-test/locations.csv"
+    latlongdata="./docs/baym-test/locations.csv"
     echo "lat,lng" > $latlongdata
     curl -L $baym_link | sed 1d | awk -F '\t' '{print $3}' >> $latlongdata
 }
 
 build_website() {
-    num_responses=$(wc -l $latlongdata)
+    num_responses=$(wc -l $latlongdata | awk '{print $1}')
     echo "
 <head>
   <style> body { margin: 0; } </style>
@@ -40,7 +40,7 @@ build_website() {
       .hexBinMerge(true)
       .enablePointerInteraction(false); // performance improvement
 
-    fetch('$latlongdata').then(res => res.text())
+    fetch('./locations.csv').then(res => res.text())
       .then(csv => d3.csvParse(csv, ({ lat, lng }) => ({ lat: +lat, lng: +lng })))
       .then(data => world.hexBinPointsData(data));
 
