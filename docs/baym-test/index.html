@@ -23,16 +23,6 @@
       propagationSpeed: (Math.random() - 0.5) * 20 + 1,
       repeatPeriod: Math.random() * 2000 + 200
     }));
-    
-    const dbmi = ({
-        lat: 42.3354375,
-        lng: -71.1044172,
-        //altitude: 0.0015,
-        //resolution: 64,
-        //repeatperiod: 700,
-        //maxR: 2,
-        //propspeed: 1,
-    });
 
     const world = Globe()
       (document.getElementById('globeViz'))
@@ -40,9 +30,6 @@
       .bumpImageUrl('//unpkg.com/three-globe/example/img/earth-topology.png')
       .backgroundImageUrl('//unpkg.com/three-globe/example/img/night-sky.png')
       .ringsData(gdata)
-      //.ringAltitude('altitude')
-      //.ringResolution('resolution')
-      //.ringRepeatPeriod('repeatperiod')
       .ringMaxRadius('maxR')
       .ringPropagationSpeed('propagationSpeed')
       .ringRepeatPeriod('repeatPeriod')
