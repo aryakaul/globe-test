@@ -12,15 +12,13 @@
   <script>
 
     const weightColor = d3.scaleSequentialSqrt(d3.interpolateYlOrRd)
-      .domain([0, 3]);
+      .domain([0, 7]);
 
     const colorInterpolator = t => `rgba(255,100,50,${Math.sqrt(1-t)})`;
 
     const dbmi = [{
         lat: 42.3354375,
         lng: -71.1044172,
-        //altitude: 0.0015,
-        //resolution: 64,
         repeatPeriod: 700,
         maxR: 3,
         propagationSpeed: -0.5,
@@ -45,7 +43,6 @@
     fetch('./locations.csv').then(res => res.text())
       .then(csv => d3.csvParse(csv, ({ lat, lng }) => ({ lat: +lat, lng: +lng })))
       .then(data => world.hexBinPointsData(data));
-
 
     // Add auto-rotation
     world.controls().autoRotate = true;

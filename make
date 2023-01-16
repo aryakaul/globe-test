@@ -29,11 +29,26 @@ build_website() {
     const weightColor = d3.scaleSequentialSqrt(d3.interpolateYlOrRd)
       .domain([0, $num_responses]);
 
+    const colorInterpolator = t => \`rgba(255,100,50,\${Math.sqrt(1-t)})\`;
+
+    const dbmi = [{
+        lat: 42.3354375,
+        lng: -71.1044172,
+        repeatPeriod: 700,
+        maxR: 3,
+        propagationSpeed: -0.5,
+    }];
+
     const world = Globe()
       (document.getElementById('globeViz'))
       .globeImageUrl('//unpkg.com/three-globe/example/img/earth-blue-marble.jpg')
       .bumpImageUrl('//unpkg.com/three-globe/example/img/earth-topology.png')
       .backgroundImageUrl('//unpkg.com/three-globe/example/img/night-sky.png')
+      .ringsData(dbmi)
+      .ringMaxRadius('maxR')
+      .ringPropagationSpeed('propagationSpeed')
+      .ringRepeatPeriod('repeatPeriod')
+      .ringColor(() => colorInterpolator)
       .hexBinResolution(3)
       .hexTopColor(d => weightColor(d.sumWeight))
       .hexSideColor(d => weightColor(d.sumWeight))
