@@ -14,15 +14,7 @@
     const weightColor = d3.scaleSequentialSqrt(d3.interpolateYlOrRd)
       .domain([0, 3]);
 
-    // Gen random data
-    const N = 10;
-    const gData = [...Array(N).keys()].map(() => ({
-      lat: (Math.random() - 0.5) * 180,
-      lng: (Math.random() - 0.5) * 360,
-      maxR: Math.random() * 20 + 3,
-      propagationSpeed: (Math.random() - 0.5) * 20 + 1,
-      repeatPeriod: Math.random() * 2000 + 200
-    }));
+    const colorInterpolator = t => `rgba(255,100,50,${Math.sqrt(1-t)})`;
 
     const dbmi = [{
         lat: 42.3354375,
@@ -30,8 +22,8 @@
         //altitude: 0.0015,
         //resolution: 64,
         repeatPeriod: 700,
-        maxR: 2,
-        propagationSpeed: 1,
+        maxR: 5,
+        propagationSpeed: -1,
     }];
 
     const world = Globe()
@@ -43,6 +35,7 @@
       .ringMaxRadius('maxR')
       .ringPropagationSpeed('propagationSpeed')
       .ringRepeatPeriod('repeatPeriod')
+      .ringColor(() => colorInterpolator)
       .hexBinResolution(3)
       .hexTopColor(d => weightColor(d.sumWeight))
       .hexSideColor(d => weightColor(d.sumWeight))
