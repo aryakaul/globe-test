@@ -40,9 +40,9 @@ build_website() {
         maxR: 3,
         propagationSpeed: -0.5,
         label: 'Baym Lab',
-        color: \`rgba(255,100,50)\`,
+        color: 'red',
         radius: 0.3,
-        size: 2,
+        size: 1,
     }];
 
     const world = Globe()
@@ -63,12 +63,10 @@ build_website() {
       .hexBinResolution(3)
       .hexTopColor(d => weightColor(d.sumWeight))
       .hexSideColor(d => weightColor(d.sumWeight))
-      //.hexLabel('name')
       .hexBinMerge(true)
       .enablePointerInteraction(false); // performance improvement
 
     fetch('./locations.csv').then(res => res.text())
-      //.then(csv => d3.csvParse(csv, ({ lat, lng, name }) => ({ lat: +lat, lng: +lng, name: name })))
       .then(csv => d3.csvParse(csv, ({ lat, lng }) => ({ lat: +lat, lng: +lng })))
       .then(data => world.hexBinPointsData(data));
 
