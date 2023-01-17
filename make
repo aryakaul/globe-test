@@ -38,7 +38,7 @@ build_website() {
         maxR: 3,
         propagationSpeed: -0.5,
         label: 'Baym Lab',
-        color: 'red',
+        color: 'salmon',
         radius: 0.3,
         size: 1,
     }];
