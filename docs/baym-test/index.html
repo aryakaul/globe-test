@@ -46,13 +46,13 @@
       .hexBinResolution(3)
       .hexTopColor(d => weightColor(d.sumWeight))
       .hexSideColor(d => weightColor(d.sumWeight))
-      //.hexBinMerge(true)
+      .hexBinMerge(true)
       .hexLabel(d => `
         <ul><li>
          ${d.points.slice().sort((a, b) => b.name - a.name).map(d => d.name).join('</li><li>')}
         </li></ul>
       `)
-      .enablePointerInteraction(false); // performance improvement
+      .enablePointerInteraction(true);
 
     fetch('./locations.csv').then(res => res.text())
       .then(csv => d3.csvParse(csv, ({ name, lat, lng }) => ({ name: name, lat: +lat, lng: +lng })))
