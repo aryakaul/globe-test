@@ -61,7 +61,7 @@ build_website() {
       .hexBinResolution(3)
       .hexTopColor(d => weightColor(d.sumWeight))
       .hexSideColor(d => weightColor(d.sumWeight))
-      .hexBinMerge(true)
+      //.hexBinMerge(true)
       .hexLabel(d => \`
         <ul><li>
          \${d.points.slice().sort((a, b) => b.name - a.name).map(d => d.name).join('</li><li>')}
