@@ -7,8 +7,8 @@ baym_link="https://docs.google.com/spreadsheets/d/176vgtgU8YnqGl14yqhUTwCzm3vBy1
 
 dl_googlesheet() {
     latlongdata="./docs/baym-test/locations.csv"
-    echo "lat,lng,name" > $latlongdata
-    curl -L $baym_link | sed 1d | awk -F '\t' -v OFS=',' '{print $3, $2}' >> $latlongdata
+    echo "name,lat,lng" > $latlongdata
+    curl -L $baym_link | sed 1d | awk -F '\t' '{printf "%s,%s\n", $2, $3}' >> $latlongdata
 }
 
 build_website() {
@@ -62,10 +62,11 @@ build_website() {
       .hexTopColor(d => weightColor(d.sumWeight))
       .hexSideColor(d => weightColor(d.sumWeight))
       .hexBinMerge(true)
+      .hexLabel('name')
       .enablePointerInteraction(false); // performance improvement
 
     fetch('./locations.csv').then(res => res.text())
-      .then(csv => d3.csvParse(csv, ({ lat, lng }) => ({ lat: +lat, lng: +lng })))
+      .then(csv => d3.csvParse(csv, ({ lat, lng, name }) => ({ lat: +lat, lng: +lng, name: name })))
       .then(data => world.hexBinPointsData(data));
 
     // Add auto-rotation
