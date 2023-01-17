@@ -39,6 +39,7 @@ build_website() {
         repeatPeriod: 700,
         maxR: 3,
         propagationSpeed: -0.5,
+        label: 'Baym Lab',
     }];
 
     const world = Globe()
@@ -52,7 +53,7 @@ build_website() {
       .ringRepeatPeriod('repeatPeriod')
       .ringColor(() => colorInterpolator)
       .labelsData(dbmi)
-      .labelText('Baym Lab')
+      .labelText('label')
       .hexBinResolution(3)
       .hexTopColor(d => weightColor(d.sumWeight))
       .hexSideColor(d => weightColor(d.sumWeight))
