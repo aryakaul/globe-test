@@ -61,7 +61,7 @@ build_website() {
       .enablePointerInteraction(false); // performance improvement
 
     fetch('./locations.csv').then(res => res.text())
-      .then(csv => d3.csvParse(csv, ({ lat, lng, name }) => ({ lat: +lat, lng: +lng, name: +name })))
+      .then(csv => d3.csvParse(csv, ({ lat, lng, name }) => ({ lat: +lat, lng: +lng, name: name })))
       .then(data => world.hexBinPointsData(data));
 
     // Add auto-rotation
