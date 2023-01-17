@@ -8,14 +8,11 @@
 
 <body>
   <div id=globeViz></div>
-  <div class="title">
-            <p>Baym Lab</p>
-</div>
 
   <script>
 
     const weightColor = d3.scaleSequentialSqrt(d3.interpolateYlOrRd)
-      .domain([0, 7]);
+      .domain([0, 9]);
 
     const colorInterpolator = t => `rgba(255,100,50,${Math.sqrt(1-t)})`;
 
@@ -23,7 +20,7 @@
         lat: 42.3354375,
         lng: -71.1044172,
         repeatPeriod: 700,
-        maxR: 2,
+        maxR: 3,
         propagationSpeed: -0.5,
     }];
 
