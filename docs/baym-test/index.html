@@ -11,10 +11,8 @@
 
   <script>
 
-    const weightColor = d3.scaleLinear()
-      .domain([0, 9])
-      .range(['yellow', 'darkred'])
-      .clamp(true);
+    const weightColor = d3.scaleSequentialSqrt(d3.interpolateYlOrRd)
+        .domain([0, 9]);
 
     const colorInterpolator = t => `rgba(255,100,50,${Math.sqrt(1-t)})`;
 
