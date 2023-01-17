@@ -54,7 +54,7 @@ build_website() {
       .hexBinResolution(3)
       .hexTopColor(d => weightColor(d.sumWeight))
       .hexSideColor(d => weightColor(d.sumWeight))
-      .hexLabel(d => <b>\${d.name.length}</b>)
+      .hexLabel(d => <b>\${d.name}</b>)
       .hexBinMerge(true)
       .enablePointerInteraction(false); // performance improvement
 
