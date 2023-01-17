@@ -40,6 +40,9 @@ build_website() {
         maxR: 3,
         propagationSpeed: -0.5,
         label: 'Baym Lab',
+        color: \`rgba(255,100,50)\`,
+        radius: 0.3,
+        size: 2,
     }];
 
     const world = Globe()
@@ -54,15 +57,19 @@ build_website() {
       .ringColor(() => colorInterpolator)
       .labelsData(dbmi)
       .labelText('label')
+      .labelColor('color')
+      .labelSize('size')
+      .labelDotRadius('radius')
       .hexBinResolution(3)
       .hexTopColor(d => weightColor(d.sumWeight))
       .hexSideColor(d => weightColor(d.sumWeight))
-      .hexLabel('name')
+      //.hexLabel('name')
       .hexBinMerge(true)
       .enablePointerInteraction(false); // performance improvement
 
     fetch('./locations.csv').then(res => res.text())
-      .then(csv => d3.csvParse(csv, ({ lat, lng, name }) => ({ lat: +lat, lng: +lng, name: name })))
+      //.then(csv => d3.csvParse(csv, ({ lat, lng, name }) => ({ lat: +lat, lng: +lng, name: name })))
+      .then(csv => d3.csvParse(csv, ({ lat, lng }) => ({ lat: +lat, lng: +lng })))
       .then(data => world.hexBinPointsData(data));
 
     // Add auto-rotation
