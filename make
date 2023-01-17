@@ -75,7 +75,7 @@ build_website() {
 
     // Add auto-rotation
     world.controls().autoRotate = true;
-    world.controls().autoRotateSpeed = 0.8;
+    world.controls().autoRotateSpeed = 0.1;
   </script>
 </body>
 " > $(pwd)/docs/baym-test/index.html
