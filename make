@@ -62,11 +62,11 @@ build_website() {
       .hexTopColor(d => weightColor(d.sumWeight))
       .hexSideColor(d => weightColor(d.sumWeight))
       .hexBinMerge(true)
-      .hexLabel('name')
+      //.hexLabel('name')
       .enablePointerInteraction(false); // performance improvement
 
     fetch('./locations.csv').then(res => res.text())
-      .then(csv => d3.csvParse(csv, ({ lat, lng, name }) => ({ lat: +lat, lng: +lng, name: name })))
+      .then(csv => d3.csvParse(csv, ({ name, lat, lng }) => ({ name: name, lat: +lat, lng: +lng })))
       .then(data => world.hexBinPointsData(data));
 
     // Add auto-rotation
