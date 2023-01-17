@@ -47,6 +47,12 @@
       .hexTopColor(d => weightColor(d.sumWeight))
       .hexSideColor(d => weightColor(d.sumWeight))
       .hexBinMerge(true)
+      .hexLabel()
+      .hexLabel(d => `
+        <ul><li>
+         ${d.points.slice().sort((a, b) => b.name - a.name).map(d => d.name).join('</li><li>')}
+        </li></ul>
+      `)
       //.hexLabel('name')
       .enablePointerInteraction(false); // performance improvement
 
