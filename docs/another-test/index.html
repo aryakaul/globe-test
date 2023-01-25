@@ -49,7 +49,7 @@
       //.hexBinMerge(true)
       .hexLabel(d => `
         <ul><li>
-         ${d.points.slice().sort((a, b) => b.name - a.name).map(d => d.name).join('</li><li>')}
+         ${d.points.slice().sort((a, b) => b.name - a.name).map(d => d.name).filter(Boolean)join('</li><li>')}
         </li></ul>
       `)
       .enablePointerInteraction(true);
