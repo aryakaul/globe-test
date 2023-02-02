@@ -8,7 +8,7 @@ baym_link="https://docs.google.com/spreadsheets/d/176vgtgU8YnqGl14yqhUTwCzm3vBy1
 dl_googlesheet() {
     latlongdata="./docs/baym-test/locations.csv"
     echo "name,lat,lng" > $latlongdata
-    curl -L $baym_link | sed 1d | awk -F '\t' '{printf "%s,%s\n", $2, $3}' >> $latlongdata
+    curl -L $baym_link | sed 1d | awk -F '\t' '{printf "%s,%s\n", $2, $3}' | sed 's/, /,/' >> $latlongdata
 }
 
 build_website() {
