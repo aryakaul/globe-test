@@ -20,9 +20,11 @@
         .arcStartLng(d => +d.srcLng)
         .arcEndLat(d => +d.dstLat)
         .arcEndLng(d => +d.dstLng)
+        .arcStroke(2)
         .arcDashLength(0.8)
         .arcDashGap(0.3)
         .arcDashAnimateTime(4000)
+        .arcAltitudeAutoScale(0.2)
         .backgroundImageUrl('//unpkg.com/three-globe/example/img/night-sky.png')
         .enablePointerInteraction(true);
 
