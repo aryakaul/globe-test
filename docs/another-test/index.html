@@ -30,7 +30,7 @@
         .enablePointerInteraction(true);
 
     fetch('./locations.csv').then(res => res.text())
-      .then(csv => d3.csvParse(csv, ({ tripname, link, srcLat, srcLng, dstLat, dstLng }) => ({ tripname: tripname, link: +link, srcLat: +srcLat, srcLng: +srcLng, dstLat: +dstLat, dstLng: +dstLng, color: color})))
+      .then(csv => d3.csvParse(csv, ({ tripname, link, srcLat, srcLng, dstLat, dstLng }) => ({ tripname: +tripname, link: +link, srcLat: +srcLat, srcLng: +srcLng, dstLat: +dstLat, dstLng: +dstLng, color: +color})))
       .then(data => world.arcsData(data));
 
   </script>
