@@ -29,11 +29,14 @@
         .arcDashAnimateTime(4000)
         .arcsTransitionDuration(0)
         .arcAltitudeAutoScale(0.2)
+        .onArcClick(d => {
+            window.open(d.link);
+        }
         .backgroundImageUrl('//unpkg.com/three-globe/example/img/night-sky.png')
         .enablePointerInteraction(true);
 
     fetch('./locations.csv').then(res => res.text())
-      .then(csv => d3.csvParse(csv, ({ tripname, link, srcLat, srcLng, dstLat, dstLng, color }) => ({ tripname: tripname, link: +link, srcLat: +srcLat, srcLng: +srcLng, dstLat: +dstLat, dstLng: +dstLng, color: color})))
+      .then(csv => d3.csvParse(csv, ({ tripname, link, srcLat, srcLng, dstLat, dstLng, color }) => ({ tripname: tripname, link: link, srcLat: +srcLat, srcLng: +srcLng, dstLat: +dstLat, dstLng: +dstLng, color: color})))
       .then(data => world.arcsData(data));
 
   </script>
