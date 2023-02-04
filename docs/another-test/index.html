@@ -20,7 +20,8 @@
         .arcStartLng(d => +d.srcLng)
         .arcEndLat(d => +d.dstLat)
         .arcEndLng(d => +d.dstLng)
-        .arcStroke(2)
+        .arcColor('color')
+        .arcStroke(1.5)
         .arcDashLength(0.8)
         .arcDashGap(0.3)
         .arcDashAnimateTime(4000)
@@ -29,7 +30,7 @@
         .enablePointerInteraction(true);
 
     fetch('./locations.csv').then(res => res.text())
-      .then(csv => d3.csvParse(csv, ({ tripname, link, srcLat, srcLng, dstLat, dstLng }) => ({ tripname: +tripname, link: +link, srcLat: +srcLat, srcLng: +srcLng, dstLat: +dstLat, dstLng: +dstLng })))
+      .then(csv => d3.csvParse(csv, ({ tripname, link, srcLat, srcLng, dstLat, dstLng }) => ({ tripname: tripname, link: +link, srcLat: +srcLat, srcLng: +srcLng, dstLat: +dstLat, dstLng: +dstLng, color: color})))
       .then(data => world.arcsData(data));
 
   </script>
