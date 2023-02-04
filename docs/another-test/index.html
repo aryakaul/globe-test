@@ -15,12 +15,12 @@
       (document.getElementById('globeViz'))
         .globeImageUrl('//unpkg.com/three-globe/example/img/earth-blue-marble.jpg')
         .bumpImageUrl('//unpkg.com/three-globe/example/img/earth-topology.png')
-        .arcLabel(d => d.tripname)
+        .arcLabel(d => `${d.tripname}`)
         .arcStartLat(d => +d.srcLat)
         .arcStartLng(d => +d.srcLng)
         .arcEndLat(d => +d.dstLat)
         .arcEndLng(d => +d.dstLng)
-        .arcColor(d => d.color)
+        .arcColor(d => `${d.color}`)
         .arcStroke(1.5)
         .arcDashLength(0.8)
         .arcDashGap(0.3)
@@ -30,7 +30,7 @@
         .enablePointerInteraction(true);
 
     fetch('./locations.csv').then(res => res.text())
-      .then(csv => d3.csvParse(csv, ({ tripname, link, srcLat, srcLng, dstLat, dstLng }) => ({ tripname: +tripname, link: +link, srcLat: +srcLat, srcLng: +srcLng, dstLat: +dstLat, dstLng: +dstLng, color: +color})))
+      .then(csv => d3.csvParse(csv, ({ tripname, link, srcLat, srcLng, dstLat, dstLng }) => ({ tripname: tripname, link: +link, srcLat: +srcLat, srcLng: +srcLng, dstLat: +dstLat, dstLng: +dstLng, color: color})))
       .then(data => world.arcsData(data));
 
   </script>
