@@ -14,7 +14,7 @@
     const OPACITY = 0.80;
     const world = Globe()
       (document.getElementById('globeViz'))
-        .globeImageUrl('//unpkg.com/three-globe/example/img/earth-blue-marble.jpg')
+        .globeImageUrl('//unpkg.com/three-globe/example/img/earth-dark.jpg')
         .bumpImageUrl('//unpkg.com/three-globe/example/img/earth-topology.png')
         .arcLabel(d => `${d.tripname}`)
         .arcStartLat(d => +d.srcLat)
@@ -29,9 +29,9 @@
         .arcDashAnimateTime(4000)
         .arcsTransitionDuration(0)
         .arcAltitudeAutoScale(0.2)
-        .onArcClick(d => {
-            window.open(d.link);
-        }
+        .onArcClick((d) => {
+            window.open(d.link)
+        })
         .backgroundImageUrl('//unpkg.com/three-globe/example/img/night-sky.png')
         .enablePointerInteraction(true);
 
